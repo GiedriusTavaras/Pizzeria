@@ -77,8 +77,8 @@ class Front extends Controller
     {
         $cart = Session::get('cart', collect());
         $product = Product::where('id', $request->id)->first();
-        $count = $request->count ?? 0;
-        $count = $count < 0 ? 0 : $count;
+        $count = $request->count ?? 1;
+        $count = $count < 0 ? 1 : $count;
 
         $product->count = $count;
         $cart->add($product);
