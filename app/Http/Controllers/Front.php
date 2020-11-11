@@ -76,12 +76,18 @@ class Front extends Controller
     public function addToCartApi(Request $request) 
     {
         $cart = Session::get('cart', collect());
-        $product = Product::where('id', $request->id)->first();
         $count = $request->count ?? 1;
         $count = $count < 0 ? 1 : $count;
 
-        $product->count = $count;
-        $cart->add($product);
+        if ($cart->contains('id', $request->id)) {
+            $pizza = $cart->firstWhere('id', $request->id);
+            $pizza->count = $pizza->count + $count;
+        }
+        else {
+            $product = Product::where('id', $request->id)->first();
+            $product->count = $count;
+            $cart->add($product);
+        }
         Session::put('cart', $cart);
         $cartAmount = Fron::getCartAmount();
         $cartCount = Fron::getCartCount();
