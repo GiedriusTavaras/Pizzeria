@@ -51,3 +51,38 @@ if (document.querySelector('.product')) {
     })
 
 }
+
+if (document.querySelector('.modalas')) {
+
+    const modal = document.querySelector(".modal-bin");
+
+    document.querySelectorAll('.modalas h3').forEach(p => {
+
+        p.addEventListener("click", () => {
+            modal.style.zIndex = 100;
+         });
+    })
+}
+
+if (document.querySelector('.modal-container')) {
+
+    const modal = document.querySelector(".modal-bin");
+
+    document.querySelectorAll('.modal-container .modal-close').forEach(p => {
+
+        p.addEventListener("click", () => {
+            modal.style.zIndex = -100;
+         });
+    })
+}
+
+
+
+
+
+
+
+
+
+
+     

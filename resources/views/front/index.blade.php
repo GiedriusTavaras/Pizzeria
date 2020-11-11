@@ -2,7 +2,7 @@
 
 @extends('layouts.header2') 
 
-
+{{-- sort --}}
 @section('content')
 <script> const addToCartApi = "{{route('addToCartApi')}}" </script>
 <form action="{{route('front.index')}}" method="get">
@@ -30,87 +30,9 @@
     </div>
   </form>
 
-{{-- <div class="md:px-32 py-8 w-full">
-    <div class="shadow overflow-hidden rounded border-b border-gray-200">
-      <table class="min-w-full bg-white">
-        <thead class="bg-gray-800 text-white">
-          <tr>
-            <th class="w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">Categorie</th>
-            <th class="w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">Title</th>
-            <th class="w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">Price</th>
-            <th class="w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">Photo</th>
-          </tr>
-        </thead>
-        @foreach ($products as $product)
-      <tbody class="text-gray-700">
-        <tr>
-          <td class="shadow w-1/3 text-left py-3 px-4">{{$product->productCategorie->title}}</td>
-          <td class="shadow w-1/3 text-left py-3 px-4">{{$product->title}}</td>
-          <td class="shadow w-1/3 text-left py-3 px-4">{{$product->price}}</td>
-          @if ($product->photo)
-        <td class="hidden md:table-cell"><img src="{{asset('images/'.$product->photo)}}"></td>
-        @else 
-        <td class="hidden md:table-cell"><img src="https://png.pngtree.com/png-vector/20190130/ourmid/pngtree-hand-drawn-cute-cartoon-burger-with-food-elements-elementlovely-foodcartoon-foodhand-png-image_613521.jpg"></td>
-        @endif
-        </tr>
-      </tbody>
-      @endforeach
-      </table>
-    </div>
-  </div>
-
-@endsection --}} 
 
 
-<!-- component -->
-<!-- This is an example component -->
-{{-- <div id="menu" class="container mx-auto px-4 lg:pt-1 lg:pb-64">
-    <div class="flex flex-wrap text-center justify-center">
-      <div class="w-full lg:w-6/12 px-4">
-        <h2 class="text-4xl font-semibold text-black">Our Menu</h2>
-        <p class="text-lg leading-relaxed mt-4 mb-4 text-gray-500">
-          Best menu ever!!! 
-        </p>
-      </div>
-    </div>
-    <div class="flex flex-wrap mt-12 justify-center">
-    <div class="grid grid-cols-1 sm:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-4">
-        @foreach ($products as $product)
-      <div class="col-span-2 sm:col-span-1 xl:col-span-1">
-        @if ($product->photo)
-        <img
-          alt="..."
-          src="{{asset('images/'.$product->photo)}}"
-          class="h-24 w-24 rounded  mx-auto"
-        />
-        @else
-        <img
-        alt="..."
-        src="https://png.pngtree.com/png-vector/20190130/ourmid/pngtree-hand-drawn-cute-cartoon-burger-with-food-elements-elementlovely-foodcartoon-foodhand-png-image_613521.jpg"
-        class="h-24 w-24 rounded  mx-auto"
-        />
-        @endif
-      </div>
-      <div class="col-span-2 sm:col-span-4 xl:col-span-4">
-        <h3 class="font-semibold text-black">{{$product->title}}</h3>
-        <p>
-            {{$product->description}}
-        </p>
-      </div>
-      <div class="col-span-2 sm:col-span-1 xl:col-span-1 italic ">{{$product->price}}</div>
-      @endforeach
-    </div>
-    </div>
-  </div> --}}
 
-
-<!-- component -->
-{{-- <div class="h-screen w-full flex bg-gray-800"> --}}
-   
- 
-      <!-- nav content -->
-
-    <!-- main -->
     <main class="w-full overflow-y-auto">
       <div class="px-10 mt-2 p-2">
         <span class="uppercase font-bold text-2xl text-white"
@@ -138,7 +60,9 @@
           </div>
           <div class="bg-white shadow-lg rounded-lg -mt-4 w-64">
             <div class="py-5 px-5">
-              <span class="font-bold text-gray-800 text-lg">{{$product->title}}</span>
+                <div class="modalas">
+                    <h3 class="font-bold cursor-pointer text-gray-800 text-lg">{{$product->title}}</h3>
+                    </div>
               <div class="flex items-center justify-between">
                 <div class="text-sm text-gray-600 font-light">
                   Description : {{$product->description}}
@@ -160,10 +84,47 @@
     </main>
   </div>
 
-  {{-- ===============================================
-  
-
-  <td class="shadow w-1/3 text-left py-3 px-4">{{$product->$variation->price}}</a></td> --}}
-
-
   @endsection
+
+
+
+  <div style="z-index: -1;" class="modal-bin modal   fixed w-full h-full top-0 left-0 flex items-center justify-center">
+    <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
+    
+    <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
+      
+      <div class="modal-close absolute top-0 right-0 cursor-pointer flex flex-col items-center mt-4 mr-4 text-white text-sm z-50">
+        <svg class="fill-current text-white" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+          <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
+        </svg>
+        <span class="text-sm">(Esc)</span>
+      </div>
+
+      <!-- Add margin if you want to see some of the overlay behind the modal-->
+      <div class="modal-content py-4 text-left px-6">
+        <!--Title-->
+        <div class="flex justify-between items-center pb-3">
+          <p class="text-2xl font-bold">Simple Modal!</p>
+          <div class="modal-close cursor-pointer z-50">
+            <svg class="fill-current cursor-pointer text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+              <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
+            </svg>
+          </div>
+        </div>
+
+        <!--Body-->
+        <p>Modal content can go here</p>
+        <p>...</p>
+        <p>...</p>
+        <p>...</p>
+        <p>...</p>
+
+        <!--Footer-->
+        <div class="flex justify-end pt-2">
+          <button class="px-4 bg-transparent p-3 rounded-lg text-indigo-500 hover:bg-gray-100 hover:text-indigo-400 mr-2">Action</button>
+          <button class="modal-close px-4 bg-indigo-500 p-3 rounded-lg text-white hover:bg-indigo-400">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>

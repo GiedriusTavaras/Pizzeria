@@ -19367,6 +19367,25 @@ if (document.querySelector('.product')) {
   });
 }
 
+if (document.querySelector('.modalas')) {
+  var modal = document.querySelector(".modal-bin");
+  document.querySelectorAll('.modalas h3').forEach(function (p) {
+    p.addEventListener("click", function () {
+      modal.style.zIndex = 100;
+    });
+  });
+}
+
+if (document.querySelector('.modal-container')) {
+  var _modal = document.querySelector(".modal-bin");
+
+  document.querySelectorAll('.modal-container .modal-close').forEach(function (p) {
+    p.addEventListener("click", function () {
+      _modal.style.zIndex = -100;
+    });
+  });
+}
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
